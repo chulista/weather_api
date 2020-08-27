@@ -1,4 +1,4 @@
-// Package weather_api documentation here
+// Package weather_api INSERT documentation here
 package weather_api
 
 import "fmt"

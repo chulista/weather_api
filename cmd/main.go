@@ -1,5 +1,5 @@
 // Package weather_api INSERT documentation here
-package weather_api
+package cmd
 
 import "fmt"
 

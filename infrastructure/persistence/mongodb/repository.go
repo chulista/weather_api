@@ -2,13 +2,15 @@ package mongodb
 
 import (
 	"context"
+	"github.com/chulista/weather_api/application"
+	"github.com/chulista/weather_api/domain"
+	"github.com/chulista/weather_api/interfaces"
 	"github.com/pkg/errors"
-	"gopkg.in/mgo.v2/bson"
-	"hex-microservice/shortener"
-	"time"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"gopkg.in/mgo.v2/bson"
+	"time"
 )
 
 type mongoRepository struct {
@@ -31,7 +33,7 @@ func newMongoClient(mongoURL string, mongoTimeout int) (*mongo.Client, error) {
 	return client, nil
 }
 
-func NewMongoRepository(mongoURL, mongoDB string, mongoTimeout int) (shortener.RedirectRepository, error) {
+func NewMongoRepository(mongoURL, mongoDB string, mongoTimeout int) (interfaces.RedirectRepository, error) {
 	repo := &mongoRepository{
 		timeout:  time.Duration(mongoTimeout) * time.Second,
 		database: mongoDB,
@@ -44,23 +46,23 @@ func NewMongoRepository(mongoURL, mongoDB string, mongoTimeout int) (shortener.R
 	return repo, nil
 }
 
-func (r *mongoRepository) Find(code string) (*shortener.Redirect, error) {
+func (r *mongoRepository) Find(code string) (*domain.Redirect, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
-	redirect := &shortener.Redirect{}
+	redirect := &domain.Redirect{}
 	collection := r.client.Database(r.database).Collection("redirects")
 	filter := bson.M{"code": code}
 	err := collection.FindOne(ctx, filter).Decode(&redirect)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return nil, errors.Wrap(shortener.ErrRedirectNotFound, "repository.Redirect.Find")
+			return nil, errors.Wrap(application.ErrRedirectNotFound, "repository.Redirect.Find")
 		}
 		return nil, errors.Wrap(err, "repository.Redirect.Find")
 	}
 	return redirect, nil
 }
 
-func (r *mongoRepository) Store(redirect *shortener.Redirect) error {
+func (r *mongoRepository) Store(redirect *domain.Redirect) error {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection("redirects")

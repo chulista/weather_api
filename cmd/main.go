@@ -1,12 +1,13 @@
 // Package weather_api INSERT documentation here
-package cmd
+package main
 
 import (
 	"fmt"
 	"github.com/chulista/weather_api/application"
-	"github.com/chulista/weather_api/interfaces"
-	rr "github.com/chulista/weather_api/infrastructure/persistence/redis"
+	"github.com/chulista/weather_api/handlers"
 	mr "github.com/chulista/weather_api/infrastructure/persistence/mongodb"
+	rr "github.com/chulista/weather_api/infrastructure/persistence/redis"
+	"github.com/chulista/weather_api/interfaces"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"log"
@@ -21,7 +22,7 @@ import (
 func main() {
 	repo := chooseRepo()
 	service := application.NewRedirectService(repo)
-	handler := NewHandler(service)
+	handler := handlers.NewHandler(service)
 
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)

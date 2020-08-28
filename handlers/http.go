@@ -1,4 +1,4 @@
-package cmd
+package handlers
 
 import (
 	"github.com/chulista/weather_api/application"

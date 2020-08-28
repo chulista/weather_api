@@ -1,4 +1,4 @@
-package _interface
+package interfaces
 
 import (
 	"github.com/chulista/weather_api/domain"
@@ -7,5 +7,5 @@ import (
 
 type RedirectService interface {
 	Find(code string) (*domain.Redirect, error)
-	Store(redirect *Redirect) error
+	Store(redirect *domain.Redirect) error
 }

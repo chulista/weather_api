@@ -72,3 +72,11 @@ To see how to connect your Docker Client to the Docker Engine running on this vi
     docker pull elchulito/golang-docker:latest
 ####5º step: run DockerImage on VirtualBox
     docker run -p 8080:8080 elchulito/golang-docker
+####8º step: get DockerPort:
+    docker-machine ls
+    NAME         ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER      ERRORS
+    weatherapi   *        virtualbox   Running   tcp://192.168.99.100:2376           v19.03.12
+####7º step: test API with Postman
+    http method: GET
+    url: 192.168.99.100:8080
+    

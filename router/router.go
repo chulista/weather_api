@@ -27,4 +27,9 @@ func NewRouter() *mux.Router{
 }
 var routes = Routes{
 	Route{"HelloWorld", "GET", "/", handlers.HelloWorld},
+	Route{"Ping", "GET", "/ping", handlers.Ping},
+	Route{"Options", "OPTIONS", "/v1", handlers.Options},
+	Route{"Location", "GET", "/v1/location", handlers.GetLocation},
+	//Route{"City", "GET", "/current/{city}", handlers.GetCityStatus},
+	//Route{"CityHistory", "GET", "/forecast/{city}", handlers.GetCityStatusHistory},
 }

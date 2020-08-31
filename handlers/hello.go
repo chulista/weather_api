@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -18,4 +19,8 @@ func HelloWorld(w http.ResponseWriter, r *http.Request){
 	w.WriteHeader(200)
 	json.NewEncoder(w).Encode(msg)
 
+}
+
+func Ping(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w, "Ping")
 }

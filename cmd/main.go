@@ -2,15 +2,17 @@
 package main
 
 import (
-	"io"
+	"fmt"
+	"github.com/chulista/weather_api/router"
+	"log"
 	"net/http"
 )
 
 func main(){
-	http.HandleFunc("/", index)
-	http.ListenAndServe(":80", nil)
+	router := router.NewRouter()
+
+	server := http.ListenAndServe(":8080", router)
+	fmt.Println("el servidor está corriendo en el http://localhost:8080/hola")
+	log.Fatal(server)
 }
 
-func index(w http.ResponseWriter, r *http.Request){
-	io.WriteString(w, "hello from chulito")
-}

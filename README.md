@@ -37,3 +37,18 @@ https://medium.com/@timakin/go%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%8
     docker images // check images
     docker run docker/whalesay cowsay boo //download docker image
 
+
+    docker build -t golang-docker .
+    docker run -d -p 8080:8080 golang-docker
+
+
+####remove images
+    docker rmi -f CONTAINERID
+    
+####docker push container
+    docker push elchulito/golang-docker:tagname
+
+
+
+    
+    

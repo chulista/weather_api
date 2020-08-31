@@ -39,7 +39,7 @@ https://medium.com/@timakin/go%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%8
 
 
     docker build -t golang-docker .
-    docker run -d -p 8080:8080 golang-docker
+    docker run -d -p 8080:8080 elchulito/golang-docker
 
 
 ####remove images
@@ -49,6 +49,14 @@ https://medium.com/@timakin/go%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%8
     docker push elchulito/golang-docker:tagname
 
 
+##VirtualBox
+### install docker-machine (reference: https://github.com/docker/machine/releases)
+    curl -L https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-`uname -s`-`uname -m` >/usr/local/bin/docker-machine && \
+    chmod +x /usr/local/bin/docker-machine
 
+### create docker image on virtual box (reference: https://docs.docker.com/machine/reference/create/)
+    docker-machine create --driver virtualbox weatherapi
     
-    
+To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: 
+
+    docker-machine env weatherapi

@@ -38,7 +38,7 @@ https://medium.com/@timakin/go%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%8
     docker run docker/whalesay cowsay boo //download docker image
 
 
-    docker build -t golang-docker .
+    docker build -t elchulito/golang-docker .
     docker run -d -p 8080:8080 elchulito/golang-docker
 
 
@@ -46,8 +46,7 @@ https://medium.com/@timakin/go%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%8
     docker rmi -f CONTAINERID
     
 ####docker push container
-    docker push elchulito/golang-docker:tagname
-
+    docker push elchulito/golang-docker:latest
 
 ##VirtualBox
 ### install docker-machine (reference: https://github.com/docker/machine/releases)
@@ -60,3 +59,16 @@ https://medium.com/@timakin/go%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%8
 To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: 
 
     docker-machine env weatherapi
+
+
+##How To Upload changes on the API
+####1º step: push github repo changes    
+    git push origin ...
+####2º step: build docker image
+    docker build -t elchulito/golang-docker .
+####3º step: push docker changes
+     docker push elchulito/golang-docker:latest
+####4º step: go into the virtual box image and pull docker images changes
+    docker pull elchulito/golang-docker:latest
+####5º step: run DockerImage on VirtualBox
+    docker run -p 8080:8080 elchulito/golang-docker
